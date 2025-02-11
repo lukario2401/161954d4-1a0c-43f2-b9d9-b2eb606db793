@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - Delicious Recipes{% endblock %}
+
+{% block content %}
+<br>
+<section id="home" class="hero">
+    <h1>Welcome to Delicious Recipes</h1>
+    <p>Your one-stop destination for mouth-watering recipes.</p>
+</section>
+<br>
+
+<!-- Filter Form -->
+<section id="filters">
+    <form method="get" action="/">
+        <h3>Filter Recipes</h3>
+
+        <label for="min_calories">Min Calories:</label>
+        <input type="number" name="min_calories" id="min_calories" value="{{ request.args.get('min_calories') }}">
+
+        <label for="max_calories">Max Calories:</label>
+        <input type="number" name="max_calories" id="max_calories" value="{{ request.args.get('max_calories') }}">
+
+        <label for="min_protein">Min Protein (g):</label>
+        <input type="number" name="min_protein" id="min_protein" value="{{ request.args.get('min_protein') }}">
+
+        <label for="max_protein">Max Protein (g):</label>
+        <input type="number" name="max_protein" id="max_protein" value="{{ request.args.get('max_protein') }}">
+
+        <button type="submit">Apply Filters</button>
+    </form>
+</section>
+
+<br>
+
+<section id="recipes">
+    <h2>Featured Recipes</h2>
+    <div class="recipe-list">
+        {% for recipe in recipes %}
+        <div class="recipe-card">
+            <img src="{{ recipe.image }}" alt="{{ recipe.name }}">
+            <h3>{{ recipe.name }}</h3>
+            <p><strong>Calories:</strong> {{ recipe.calories }}</p>
+            <p><strong>Protein:</strong> {{ recipe.protein }}g</p>
+            <p><strong>Carbs:</strong> {{ recipe.carbs }}g</p>
+            <p><strong>Fat:</strong> {{ recipe.fat }}g</p>
+            <p><strong>Fiber:</strong> {{ recipe.fiber }}g</p>
+            <p><strong>Sugar:</strong> {{ recipe.sugar }}g</p>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+<br>
+{% endblock %}
